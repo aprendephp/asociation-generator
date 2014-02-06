@@ -1,0 +1,147 @@
+<head>
+<script src="jquery-2.0.3.js"></script>
+<title>Doctrine2 associations Generator - One to Many - Bidirectional</title>
+<script>
+$(document).ready(function(){
+
+	$( "input.inverse" ).keyup(function () {
+
+			var text_inverse = $(this).val();
+
+			text_inverse_lc = text_inverse.toLowerCase();
+			text_inverse_ca = text_inverse_lc.substr(0, 1).toUpperCase() + text_inverse_lc.substr(1);
+
+		    $('#nombre_clase_inverse').text(text_inverse_ca);
+
+		    $('#mappedby_inverse').text(text_inverse_lc);
+		    $('#target_owning').text(text_inverse_ca);
+		    $('#join_colum').text(text_inverse_lc);
+		    $('.owning_property').text(text_inverse_lc);
+		    $('#get_owning').text(text_inverse_ca);
+		    $('#set_owning').text(text_inverse_ca);
+
+	});
+
+	$( "input.owning" ).keyup(function () {
+
+			var text_owning = $(this).val();
+
+			text_owning_lc = text_owning.toLowerCase();
+			text_owning_ca = text_owning_lc.substr(0, 1).toUpperCase() + text_owning_lc.substr(1);
+
+		    $('#target_inverse').text(text_owning_ca);
+			$('.inverse_property').text(text_owning_lc);
+			$('#inverse_constructor').text(text_owning_lc);
+
+            $('#nombre_clase_owning').text(text_owning_ca);
+
+		    $('#inverseby_owning').text(text_owning_lc);
+		    $('#get_inverse').text(text_owning_ca);
+		    
+	});
+
+	$( "input.owning_plural" ).keyup(function () {
+
+			var plural = $(this).val();
+
+			plural = plural.toLowerCase();
+
+		    $('.owning_plural').text(plural);
+	});
+
+
+});
+</script>
+</head>
+<body>
+<h1>Doctrine2 associations Generator - One to Many - Bidirectional</h1>
+<div>
+	<div>Inverse Side Name: <input type="text" class="inverse"></div>
+	<div>Owning Side Name: <input type="text" class="owning"></div>
+	<div>Owning Side Plural Suffix: <input type="text" class="owning_plural"></div>
+</div>
+
+<div id="inverse">
+	<p>Inverse Side</p>
+
+<code>
+<pre id="code_inverse"><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Doctrine\Common\Collections\ArrayCollection</span><span class="p">;</span>
+
+<span class="sd">/** @Entity **/</span>
+<span class="k">class</span> <span id="nombre_clase_inverse" class="nc">Product</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="sd">/**</span>
+<span class="sd">     * @ORM\OneToMany(targetEntity="<span id="target_inverse">Feature</span>", mappedBy="<span id="mappedby_inverse">product</span>")</span>
+<span class="sd">     **/</span>
+    <span class="k">private</span> <span class="nv">$<span class="inverse_property" >feature</span><span class="owning_plural">s</span></span><span class="p">;</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> 
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na"><span id="inverse_constructor" >feature</span><span class="owning_plural">s</span></span><span class="o">=</span> <span class="k">new</span> <span class="nx">ArrayCollection</span><span class="p">();</span>
+    <span class="p">}</span>
+        
+    public function get<span id="get_inverse" >Feature</span><span class="owning_plural">s</span>()
+    {
+    	return $this-><span class="inverse_property" >feature</span><span class="owning_plural">s</span>;
+    }
+
+
+    public function __toString(){
+	   // implement this
+    }    
+
+<span class="p">}</span>
+
+
+</pre>
+</code>
+</div>
+
+
+
+
+
+<div id="owning">
+	 <p>Owning Side</p>
+<code>
+<pre id="code_inverse"><span class="cp">&lt;?php</span>
+
+<span class="sd">/** @Entity **/</span>
+<span class="k">class</span> <span class="nc"><span id="nombre_clase_owning" >Feature</span></span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="sd">/**</span>
+<span class="sd">     * @ORM\ManyToOne(targetEntity="<span id="target_owning">Product</span>", inversedBy="<span id="inverseby_owning">feature</span><span class="owning_plural">s</span>")</span>
+<span class="sd">     * @ORM\JoinColumn(name="<span id="join_colum">product</span>_id", referencedColumnName="id")</span>
+<span class="sd">     **/</span>
+    <span class="k">private</span> <span class="nv">$<span class="owning_property">product</span></span><span class="p">;</span>
+    <span class="c1">// ...</span>
+
+    public function get<span id="get_owning" >Product</span>()
+    {
+    	return $this-><span class="owning_property">product</span>;
+    }
+
+    public function set<span id="set_owning" >Product</span>($<span class="owning_property">product</span>)
+    {
+    	$this-><span class="owning_property">product</span>=$<span class="owning_property">product</span>;
+
+    	return $this;
+    }
+
+    public function __toString(){
+	   return  ;// fill this
+    }
+<span class="p">}</span>
+</pre>
+</code>
+
+</div>
+
+
+</strong></p>
+
+</body>

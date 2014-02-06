@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<html>
+<head>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<title>Doctrine2 associations Generator - One to One - Bidireccional</title>
+<script src="jquery-2.0.3.js"></script>
+<script>
+$(document).ready(function(){
+
+	$( "input.inverse" ).keyup(function () {
+
+			var text_inverse = $(this).val();
+
+			text_inverse_lc = text_inverse.toLowerCase();
+			text_inverse_ca = text_inverse_lc.substr(0, 1).toUpperCase() + text_inverse_lc.substr(1);
+
+		    $('.nombre_inverse_capital').text(text_inverse_ca);
+		    $('.nombre_inverse_minusculas').text(text_inverse_lc);
+	});
+
+	$( "input.owning" ).keyup(function () {
+
+			var text_owning = $(this).val();
+
+			text_owning_lc = text_owning.toLowerCase();
+			text_owning_ca = text_owning_lc.substr(0, 1).toUpperCase() + text_owning_lc.substr(1);
+
+			$('.nombre_owning_capital').text(text_owning_ca);
+			$('.nombre_owning_minusculas').text(text_owning_lc);
+		    
+	});
+});
+</script>
+</head>
+<body>
+<h1>Doctrine2 associations Generator - One to One - Bidireccional</h1>
+<div>
+	<div>Inverse Side Name: <input type="text" class="inverse"></div>
+	<div>Owning Side Name: <input type="text" class="owning"></div>
+</div>
+<div id="inverse">
+<pre id="code_inverse">
+/** @Entity **/
+class <span class="nombre_inverse_capital" >Customer</span>
+{
+    // ...
+
+    /**
+     * @ORM\OneToOne(targetEntity="<span class="nombre_owning_capital" >Cart</span>", mappedBy="<span class="nombre_inverse_minusculas" >customer</span>")
+     **/
+    private $<span class="nombre_owning_minusculas" >cart</span>;
+
+    // ...
+
+    public function get<span class="nombre_owning_capital" >Cart</span>()
+    {
+        return $this-><span class="nombre_owning_minusculas" >cart</span>;
+    }
+
+    public function __toString(){
+	  return  ;// fill this
+    }
+
+}
+</pre>
+</div>
+
+
+
+<div id="owning">
+<pre>
+<div style="float: left; white-space: pre; background: #FFFFFF; ">
+<span class="">&lt;?php</span>
+/** @Entity **/
+class <span class="nombre_owning_capital" >Cart</span>
+{
+    // ...
+
+    /**
+     * @ORM\OneToOne(targetEntity="<span class="nombre_inverse_capital" >Customer</span>", inversedBy="<span class="nombre_owning_minusculas" >cart</span>")
+     * @ORM\JoinColumn(name="<span class="nombre_inverse_minusculas" >customer</span>_id", referencedColumnName="id")
+     **/
+    private $<span class="nombre_inverse_minusculas" >customer</span>;
+
+    // ...
+
+    public function set<span class="nombre_inverse_capital" >Customer</span>($<span class="nombre_inverse_minusculas" >customer</span>)
+    {
+        $this-><span class="nombre_inverse_minusculas" >customer</span> = $<span class="nombre_inverse_minusculas" >customer</span>;
+    
+        return $this;
+    }
+
+    public function get<span class="nombre_inverse_capital" >Customer</span>()
+    {
+        return $this-><span class="nombre_inverse_minusculas" >customer</span>;
+    }
+
+}
+</pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<head>
+<script src="jquery-2.0.3.js"></script>
+<title>Doctrine2 associations Generator - Many to One - Unidireccional</title>
+<script>
+$(document).ready(function(){
+
+	$( "input.inverse" ).keyup(function () {
+
+			var text_inverse = $(this).val();
+
+			text_inverse_lc = text_inverse.toLowerCase();
+			text_inverse_ca = text_inverse_lc.substr(0, 1).toUpperCase() + text_inverse_lc.substr(1);
+
+		    $('.nombre_clase_inverse').text(text_inverse_ca);
+		    $('#join_colum').text(text_inverse_lc);
+		    $('.owning_property').text(text_inverse_lc);
+	});
+
+	$( "input.owning" ).keyup(function () {
+
+			var text_owning = $(this).val();
+
+			text_owning_lc = text_owning.toLowerCase();
+			text_owning_ca = text_owning_lc.substr(0, 1).toUpperCase() + text_owning_lc.substr(1);
+
+			$('#nombre_clase_owning').text(text_owning_ca);
+		    
+	});
+
+	$( "input.owning_plural" ).keyup(function () {
+
+			var plural = $(this).val();
+
+			plural = plural.toLowerCase();
+
+		    $('.owning_plural').text(plural);
+	});
+
+
+});
+</script>
+</head>
+<body>
+<h1>Doctrine2 associations Generator - Many to One - Unidireccional</h1>
+<div>
+	<div>Other Side Name: <input type="text" class="inverse"></div>
+	<div>Owning Side Name: <input type="text" class="owning"></div>
+</div>
+
+<div id="inverse">
+	<p>Other Side</p>
+
+<code>
+<pre id="code_inverse"><span class="cp">&lt;?php</span>
+/** @Entity **/
+class <span class="nombre_clase_inverse">Address</span>
+{
+    // ...
+
+    public function __toString(){
+	   return  ;// fill this
+    }
+
+}
+</pre>
+</code>
+</div>
+
+<div id="owning">
+	 <p>Owning Side</p>
+<code>
+<pre id="code_inverse"><span class="cp">&lt;?php</span>
+/** @Entity **/
+class <span id="nombre_clase_owning" >User</span>
+{
+    // ...
+
+    /**
+     * @ORM\ManyToOne(targetEntity="<span class="nombre_clase_inverse">Address</span>")
+     * @ORM\JoinColumn(name="<span id="join_colum">address</span>_id", referencedColumnName="id")
+     **/
+    private $<span class="owning_property">address</span>;
+
+
+    public function set<span class="nombre_clase_inverse">Address</span>($<span class="owning_property">address</span>)
+    {
+        $this-><span class="owning_property">address</span> = $<span class="owning_property">address</span>;
+    
+        return $this;
+    }
+
+    public function get<span class="nombre_clase_inverse">Address</span>()
+    {
+        return $this-><span class="owning_property">address</span>;
+    }
+
+}
+</pre>
+</code>
+
+</div>
+
+
+</strong></p>
+
+</body>
