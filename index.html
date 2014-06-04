@@ -115,7 +115,7 @@ $(document).ready(function(){
     <span class="c1">// ...</span>
     <span class="sd">/**</span>
 <span class="sd">     * @ORM\ManyToOne(targetEntity="<span id="target_owning">Product</span>", inversedBy="<span id="inverseby_owning">feature</span><span class="owning_plural">s</span>")</span>
-<span class="sd">     * @ORM\JoinColumn(name="<span id="join_colum">product</span>_id", referencedColumnName="id")</span>
+<span class="sd">     * @ORM\JoinColumn(name="<span id="join_colum">product</span>_id", referencedColumnName="id", nullable=false)</span>
 <span class="sd">     **/</span>
     <span class="k">private</span> <span class="nv">$<span class="owning_property">product</span></span><span class="p">;</span>
     <span class="c1">// ...</span>
